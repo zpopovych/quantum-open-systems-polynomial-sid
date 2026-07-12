@@ -1544,7 +1544,12 @@ function TrDist(ρ₁, ρ₂)
     else
         return(real(D))
     end
-end 
+end
+
+function TrDist_series(ρ₁, ρ₂)
+    n = min(length(ρ₁), length(ρ₂))
+    return [TrDist(ρ₁[i], ρ₂[i]) for i in 1:n]
+end
 
 function filter_terms_by_relative_threshold(poly::Polynomial, relative_threshold::Float64)
     # Get all coefficients of the polynomial
