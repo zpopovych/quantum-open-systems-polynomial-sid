@@ -1536,6 +1536,40 @@ function read_GEXY_timeevolution(file_name, γ)
 
 end
 
+function read_lorentzian_timeevolution(data_dir, state, wid)
+    # Lorentzian-spectrum dataset: one file per state, e.g. DATA/Lorentzian_State0_data.h5
+    # groups are keyed by width label ("wid1".."wid5"), datasets are t, p1 (excited population), coh_re, coh_im
+    file_name = data_dir * "Lorentzian_" * state * "_data.h5"
+    h5open(file_name, "r") do file
+        ρᵥ = read(file[state][wid])
+        t = ρᵥ["t"]; p1 = ρᵥ["p1"]; Re_ρ₀₁ = ρᵥ["coh_re"]; Im_ρ₀₁ = ρᵥ["coh_im"]
+        ρ_series = []
+        t_series = []
+
+        for i in 1:length(t)
+            ρᵢ = [ 1-p1[i]                     Re_ρ₀₁[i] + im * Im_ρ₀₁[i]
+                   Re_ρ₀₁[i] - im * Im_ρ₀₁[i]   p1[i]                     ]
+            push!(ρ_series, convert(Matrix{ComplexF64}, ρᵢ))
+            push!(t_series, convert(Float64, t[i]))
+        end
+        return(t_series, ρ_series)
+    end
+end
+
+function read_GEXY_lorentzian_timeevolution(data_dir, wid)
+
+    tᵍ, ρᵍ = read_lorentzian_timeevolution(data_dir, "State0", wid)
+    tᵉ, ρᵉ = read_lorentzian_timeevolution(data_dir, "State1", wid)
+    tˣ, ρˣ = read_lorentzian_timeevolution(data_dir, "StateX", wid)
+    tʸ, ρʸ = read_lorentzian_timeevolution(data_dir, "StateY", wid)
+
+    ρᵍᵉˣʸ = ρᵍ, ρᵉ, ρˣ, ρʸ
+    tᵍᵉˣʸ = tᵍ, tᵉ, tˣ, tʸ
+
+    return tᵍᵉˣʸ , ρᵍᵉˣʸ
+
+end
+
 function TrDist(ρ₁, ρ₂)
     A = ρ₁-ρ₂
     D = tr(sqrt(A'*A))/2
