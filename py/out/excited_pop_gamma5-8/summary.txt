@@ -1,0 +1,9 @@
+gamma_index gamma Q ansatz tssos_status mean_tracedist_all_states max_abs_pop_error_excited_state file
+5 7.9477 3.162 kossak LOCAL/FAIL 0.01717 0.01888 markov_fit_kossak_gamma5_excited.dat
+5 7.9477 3.162 lindblad LOCAL/FAIL 0.02063 0.01270 markov_fit_lindblad_gamma5_excited.dat
+6 25.133 1 kossak LOCAL/FAIL 0.06311 0.05321 markov_fit_kossak_gamma6_excited.dat
+6 25.133 1 lindblad LOCAL/FAIL 0.10385 0.05982 markov_fit_lindblad_gamma6_excited.dat
+7 79.477 0.3162 kossak LOCAL/FAIL 0.03720 0.03189 markov_fit_kossak_gamma7_excited.dat
+7 79.477 0.3162 lindblad LOCAL/FAIL 0.15780 0.19134 markov_fit_lindblad_gamma7_excited.dat
+8 251.33 0.1 kossak LOCAL/FAIL 0.02434 0.03767 markov_fit_kossak_gamma8_excited.dat
+8 251.33 0.1 lindblad GLOBAL 0.26612 0.37366 markov_fit_lindblad_gamma8_excited.dat
