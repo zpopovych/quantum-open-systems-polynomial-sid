@@ -31,8 +31,31 @@ Trace distance between the spin-boson data and each model, propagated from the d
 window start, over the 10 dodeca states (`results.csv`, `trace_dist_vs_Q.pdf`). At Q ≤ 100 the
 Lindblad fit is as good as the ME or better, so only Q = 316 is anomalous.
 
-Kurt's PDF (`trace_dist_to_damped_qubit.pdf`) could not be opened from here, so the numbers above
-still need a side-by-side look against his plot.
+**Comparison with Kurt's plot** (`trace_dist_to_damped_qubit.pdf`, values read off the log axis):
+
+| Q | Kurt avg | ours avg | Kurt max | ours max |
+|---|---|---|---|---|
+| 316 | ~8e-5 | 5.8e-4 | ~9e-4 | 1.2e-3 |
+| 100 | ~2.3e-4 | 1.5e-3 | ~2.5e-3 | 2.6e-3 |
+| 31.6 | ~8.7e-4 | 4.3e-3 | ~9.5e-3 | 8.4e-3 |
+| 10 | ~3.2e-3 | 1.35e-2 | ~3.6e-2 | 2.55e-2 |
+| 3.16 | ~1.2e-2 | 4.8e-2 | ~0.115 | 8.1e-2 |
+
+The maxima agree within about 30%, and both curves fall with Q at a similar rate.
+Our averages are 4 to 7 times higher than his, and his max/avg ratio is about 10
+where ours is about 2. So the reproduction **does not match yet**.
+
+The reason is in the data. Our spin-boson coherences contain a counter-rotating (e^{+iωt})
+component that a secular damping ME cannot produce. Its amplitude is 3.1e-4 / 9.7e-4 / 3.0e-3 /
+9.1e-3 / 2.4e-2 for Q = 316 to 3.16. That alone puts a floor of a few 1e-4 on the average
+trace distance at Q = 316, above Kurt's 8e-5. Choosing the best initial state by least squares
+instead of the data point at n = 11 does not change this (avg 3.7e-4 at Q = 316). So Kurt is
+probably using different data or a different average. Questions for him: which data files
+(sampling and cutoff), what the ME starts from at n = 11, and how the average is taken (over
+which times and states).
+
+The diagnosis below does not depend on this. At Q = 316, both his ME and ours are 35 to 250 times
+better than the TSSOS fit, and the fit's frequency error is fully explained by the Simpson bias.
 
 **2. Cause of the poor Q = 316 fit: Simpson discretisation bias in the frequency.**
 The Q = 316 data is sampled at dt = 0.02, so the qubit phase advances by ω·dt ≈ 0.50 rad per
