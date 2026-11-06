@@ -66,3 +66,10 @@ mean trace distance over the 14 states: 0.017, 0.063, 0.037, 0.024 against
 0.021, 0.104, 0.158, 0.266 for Lindblad). At γ5 the data start at t = 0.0505
 (the first samples were dropped for the initial slip), so the excited
 population starts at 0.78, not 1.
+
+## Exponentially fitted refit at Q = 316 (`09_expfit_refit_Q316.py`)
+
+This replaces the Simpson weights (1/3, 4/3, 1/3) in the loss with weights that are exact for 1 and e^{±iω₀t}: a = (1 − sinθ/θ)/(1 − cosθ), b = 2 − 2a, θ = ω₀h. The loss stays a quartic polynomial. This script runs a local least-squares check from the TSSOS start, using the notebook's 5-parameter Lindblad ansatz.
+
+- Simpson: ε = 25.12607 and mean trace distance 0.0216 over the 14 states. This is the same as TSSOS.
+- Exponentially fitted: ε = 25.13526 and mean trace distance 0.00041 (max 0.0015).
